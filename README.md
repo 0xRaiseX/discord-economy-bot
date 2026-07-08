@@ -1,81 +1,81 @@
-# Discord Economy Bot
+№ Discord Economy Bot (LEGACY)
 
-A Discord bot implementing an economy system and role shop using SQLite for data storage. The bot allows managing user balances, purchasing roles, adding reputation, and displaying leaderboards.
+▎ ⚠️ Устаревший репозиторий — больше не поддерживается. Сохранён в исторических и образовательных целях. Код предоставляется «как есть» — возможны баги, неэффективность и устаревшие паттерны.
 
-## Features
-- **Balance Management**: Check balance (`!balance`), award funds (`!award`), and deduct funds (`!take`).
-- **Role Shop**: Add (`!add-shop`), remove (`!remove-shop`), and purchase roles (`!buy`).
-- **Reputation**: Add reputation to other users (`!rep`).
-- **Leaderboard**: Display the top 10 users by balance (`!leaderboard`).
-- **Paginated Shop**: View roles in the shop with pagination (`!shop`).
+Discord-бот, реализующий экономическую систему и магазин ролей с хранением данных в SQLite. Бот позволяет управлять балансами пользователей, покупать роли, начислять репутацию и отображать таблицы лидеров.
 
-## Requirements
+Возможности
+
+- Управление балансом: проверка баланса (!balance), начисление средств (!award) и списание средств (!take).
+- Магазин ролей: добавление (!add-shop), удаление (!remove-shop) и покупка ролей (!buy).
+- Репутация: начисление репутации другим пользователям (!rep).
+- Таблица лидеров: отображение топ-10 пользователей по балансу (!leaderboard).
+- Магазин с постраничным выводом: просмотр ролей в магазине с пагинацией (!shop).
+
+Требования
+
 - Python 3.8+
-- Libraries:
-  - `discord.py`
-  - `sqlite3` (built into Python)
-  - `python-dotenv` (recommended for secure token storage)
+- Библиотеки:
+  - discord.py
+  - sqlite3 (встроена в Python)
+  - python-dotenv (рекомендуется для безопасного хранения токена)
 
-## Installation
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/0xRaiseX/Discord-Economy-Bot.git
-   cd Discord-Economy-Bot
-   ```
+Установка
 
-2. **Install dependencies**:
-   ```bash
-   pip install discord.py python-dotenv
-   ```
+1. Клонируйте репозиторий:
+git clone https://github.com/0xRaiseX/Discord-Economy-Bot.git
+cd Discord-Economy-Bot
+2. Установите зависимости:
+pip install discord.py python-dotenv
+3. Создайте файл .env:
+В корневом каталоге создайте файл .env и добавьте токен вашего бота:
+DISCORD_TOKEN=your_bot_token
+4. Запустите бота:
+python bot.py
 
-3. **Create a `.env` file**:
-   In the root directory, create a `.env` file and add your bot token:
-   ```
-   DISCORD_TOKEN=your_bot_token
-   ```
+Использование
 
-4. **Run the bot**:
-   ```bash
-   python bot.py
-   ```
+Команды
 
-## Usage
-### Commands
-- `!balance [@user]`: Shows the balance of the specified user (or yourself if no user is mentioned).
-- `!award @user <amount>`: Awards the specified amount to a user (admin only).
-- `!take @user <amount|all>`: Deducts the specified amount or all funds from a user (admin only).
-- `!add-shop @role <cost>`: Adds a role to the shop (admin only).
-- `!remove-shop @role`: Removes a role from the shop (admin only).
-- `!buy @role`: Purchases a role from the shop.
-- `!rep @user`: Adds 1 reputation point to a user.
-- `!leaderboard`: Displays the top 10 users by balance.
-- `!shop`: Shows the role shop with pagination (reactions for navigation: ⏮, ◀, ▶, ⏭).
+- !balance [@user]: показывает баланс указанного пользователя (или ваш собственный, если пользователь не упомянут).
+- !award @user <amount>: начисляет указанную сумму пользователю (только для администраторов).
+- !take @user <amount|all>: списывает указанную сумму или все средства у пользователя (только для администраторов).
+- !add-shop @role <cost>: добавляет роль в магазин (только для администраторов).
+- !remove-shop @role: удаляет роль из магазина (только для администраторов).
+- !buy @role: покупка роли из магазина.
+- !rep @user: добавляет 1 очко репутации пользователю.
+- !leaderboard: отображает топ-10 пользователей по балансу.
+- !shop: показывает магазин ролей с пагинацией (реакции для навигации: ⏮, ◀, ▶, ⏭).
 
-### Notes
-- The bot requires `manage_roles` permissions to assign roles and `manage_messages` for shop pagination.
-- All commands include error handling for permissions and invalid inputs.
+Примечания
 
-## Database Structure
-The bot uses SQLite (`server.db`) with two tables:
-1. **users**:
-   - `name`: User name (text).
-   - `id`: User ID (integer).
-   - `cash`: Balance (integer).
-   - `rep`: Reputation (integer).
-   - `lvl`: Level (integer).
-   - `server_id`: Server ID (integer).
-2. **shop**:
-   - `role_id`: Role ID (integer).
-   - `server_id`: Server ID (integer).
-   - `cost`: Role cost (integer).
-   - `category`: Role category (text, currently set to `default`).
+- Боту требуются права manage_roles для назначения ролей и manage_messages для пагинации магазина.
+- Все команды включают обработку ошибок для прав доступа и некорректного ввода.
 
-## Known Issues and Recommendations
-- **Database Connection**: The SQLite connection is not closed, which may cause issues during long-term operation. Use a context manager (`with sqlite3.connect(...)`) for queries.
-- **Duplicate Role Check**: The `!add-shop` command does not check if a role already exists in the shop. Add a check before inserting.
-- **Negative Balance**: The `!take` command allows balances to go negative. Add a check to prevent this.
-- **Logging**: Errors are printed to the console. Use the `logging` library to log errors to a file.
-- **Help Command**: No built-in `!help` command exists. Consider implementing one for user convenience.
+Структура базы данных
 
-## License
-MIT License. See the `LICENSE` file for details.
+Бот использует SQLite (server.db) с двумя таблицами:
+1. users:
+  - name: имя пользователя (text).
+  - id: ID пользователя (integer).
+  - cash: баланс (integer).
+  - rep: репутация (integer).
+  - lvl: уровень (integer).
+  - server_id: ID сервера (integer).
+2. shop:
+  - role_id: ID роли (integer).
+  - server_id: ID сервера (integer).
+  - cost: стоимость роли (integer).
+  - category: категория роли (text, в настоящее время установлена в default).
+
+Известные проблемы и рекомендации
+
+- Соединение с базой данных: соединение SQLite не закрывается, что может вызвать проблемы при длительной работе. Используйте контекстный менеджер (with sqlite3.connect(...)) для запросов.
+- Проверка дубликатов ролей: команда !add-shop не проверяет, существует ли роль уже в магазине. Добавьте проверку перед вставкой.
+- Отрицательный баланс: команда !take допускает уход баланса в минус. Добавьте проверку, чтобы это предотвратить.
+- Логирование: ошибки выводятся в консоль. Используйте библиотеку logging для записи ошибок в файл.
+- Команда помощи: встроенной команды !help нет. Рассмотрите возможность её реализации для удобства пользователей.
+
+Лицензия
+
+Лицензия MIT. Подробности см. в файле LICENSE.
